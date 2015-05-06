@@ -1,13 +1,9 @@
 puts "Let's play blackjack!"
-#Define Options
-#{dealer card: {player_sum: "option"}}
+#Define Options Hash
+#Hard numbers
 hard = Hash.new
 (5..21).each {|i| hard[i] = {} }
-p hard
-
-(2..11).each {|i| hard[5][i] = "Hit"}
-(2..11).each {|i| hard[6][i] = "Hit"}
-(2..11).each {|i| hard[7][i] = "Hit"}
+(5..7).each {|n| (2..11).each {|i| hard[n][i] = "Hit"}}
 ((2..4).to_a + (7..11).to_a).each {|i| hard[8][i] = "Hit"}
 (5..6).each {|i| hard[8][i] = "Double Down!"}
 (2..6).each {|i| hard[9][i] = "Double Down!"}
@@ -20,6 +16,25 @@ p hard
 (13..16).each {|n| (2..6).each {|i| hard[n][i] = "Stay"}}
 (13..16).each {|n| (7..11).each {|i| hard[n][i] = "Hit"}}
 (17..21).each {|n| (2..11).each {|i| hard[n][i] = "Stay"}}
+
+#Soft numbers
+soft = Hash.new
+(13..21).each {|i| soft[i] = {} }
+(13..16).each {|n|
+  ((2..3).to_a + (7..11).to_a).each {|i| soft[n][i] = "Hit"}
+  (4..6).each {|i| soft[n][i] = "Double Down!"}
+}
+(2..6).each {|i| soft[17][i] = "Double Down!"}
+(7..11).each {|i| soft[17][i] = "Hit"}
+((2..2).to_a + (7..8).to_a + (11..11).to_a).each {|i| soft[18][i] = "Stay"}
+(3..6).each {|i| soft[18][i] = "Double Down!"}
+(9..10).each {|i| soft[18][i] = "Hit"}
+((2..5).to_a + (7..11).to_a).each {|i| soft[19][i] = "Stay"}
+(6..6).each {|i| soft[19][i] = "Double Down!"}
+(20..21).each {|n| (2..11).each {|i| soft[n][i] = "Stay"}}
+
+#Pairs
+
 
 
 def evaluate_card(card)
