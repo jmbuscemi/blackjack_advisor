@@ -34,6 +34,26 @@ soft = Hash.new
 (20..21).each {|n| (2..11).each {|i| soft[n][i] = "Stay"}}
 
 #Pairs
+pair = Hash.new
+(2..11).each {|i| pair[i] = {} }
+(2..7).each {|i| pair[2][i] = "Split"}
+(8..11).each {|i| pair[2][i] = "Hit"}
+(2..8).each {|i| pair[3][i] = "Split"}
+(9..11).each {|i| pair[3][i] = "Hit"}
+((2..3).to_a + (7..11).to_a).each {|i| pair[4][i] = "Hit"}
+(4..6).each {|i| pair[4][i] = "Split"}
+(2..9).each {|i| pair[5][i] = "Double Down!"}
+(10..11).each {|i| pair[5][i] = "Hit"}
+(2..7).each {|i| pair[6][i] = "Split"}
+(8..11).each {|i| pair[6][i] = "Hit"}
+(2..8).each {|i| pair[7][i] = "Split"}
+((9..9).to_a + (11..11).to_a).each {|i| pair[7][i] = "Hit"}
+(10..10).each {|i| pair[7][i] = "Stay"}
+(2..11).each  {|i| pair[8][i] = "Split"}
+((2..6).to_a + (8..9).to_a).each {|i| pair[9][i] = "Split"}
+((7..7).to_a + (10..11).to_a).each {|i| pair[9][i] = "Stay"}
+(2..11).each  {|i| pair[10][i] = "Stay"}
+(2..11).each  {|i| pair[11][i] = "Split"}
 
 
 
