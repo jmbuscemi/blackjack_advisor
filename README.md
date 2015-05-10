@@ -11,3 +11,4 @@ optimal action for the player to take.  It stores the set of optimal moves for a
 * If a user enters something that is not an actual card, the program will exit
   (because children should not be practicing blackjack)
 * Soft hands consist of an ace with a non-face card
+* User can choose between 1, 2, or 4+ decks
