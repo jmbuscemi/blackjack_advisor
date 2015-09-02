@@ -4,7 +4,7 @@ number_decks = gets.chomp.to_i
 
 #Define Options Hash
 #Hard numbers
-hard = Hash.new("hit")
+hard = Hash.new()
 (5..21).each {|i| hard[i] = Hash.new("hit")}
 if number_decks == 1
   (5..6).each {|i| hard[8][i] = "DOUBLE DOWN!! Unless you don't have the funds...then just hit"}
@@ -23,7 +23,7 @@ end
 (17..21).each {|n| (2..11).each {|i| hard[n][i] = "stay"}}
 
 #Soft numbers
-soft = Hash.new("hit")
+soft = Hash.new()
 (13..21).each {|i| soft[i] = Hash.new("hit")}
 if number_decks == 1
   (13..14).each {|n|
@@ -48,7 +48,7 @@ end
 (20..21).each {|n| (2..11).each {|i| soft[n][i] = "stay"}}
 
 #Pairs
-pair = Hash.new("split")
+pair = Hash.new()
 (2..11).each {|i| pair[i] = Hash.new("split")}
 if number_decks == 1
   (9..11).each {|i| pair[3][i] = "hit"}
@@ -90,36 +90,25 @@ def evaluate_card(card)
   end
 end
 
-puts "Please enter your 1st card (1-10, J, Q, K, A): "
-first_card = gets.chomp.downcase
-first_value = evaluate_card(first_card).to_i
-puts "Please enter your 2nd card (1-10, J, Q, K, A): "
-second_card = gets.chomp.downcase
-second_value = evaluate_card(second_card).to_i
-puts "Please enter the dealer's up card (1-10, J, Q, K, A): "
-dealer_card = gets.chomp.downcase
-dealer_value = evaluate_card(dealer_card).to_i
-
-if first_value == second_value
-  player_move = pair[first_value][dealer_value]
-  puts "The math says you should #{player_move}."
-  exit
-elsif (first_value == 11 || second_value == 11) && (first_value < 10 || second_value < 10)
-  player_sum = first_value + second_value
-  player_move = soft[player_sum][dealer_value]
-  puts "The math says you should #{player_move}."
-  exit
-elsif (first_value == 11 || second_value == 11) && (first_value == 10 || second_value == 10)
-  puts "BLACKJACK! COLLECT YOUR MONEY!!!!"
-  exit
-else
-  player_sum = first_value + second_value
-  player_move = hard[player_sum][dealer_value]
-  puts "The math says you should #{player_move}."
-  exit
+def player_move(first_value, second_value, dealer_value, hard, soft, pair)
+  if first_value == second_value
+    puts "The math says you should " + pair[first_value][dealer_value]
+  elsif (first_value == 11 || second_value == 11) && (first_value < 10 || second_value < 10)
+    player_sum = first_value + second_value
+    puts "The math says you should " + soft[player_sum][dealer_value]
+  elsif (first_value == 11 || second_value == 11) && (first_value == 10 || second_value == 10)
+    puts "BLACKJACK! COLLECT YOUR MONEY!!!!"
+  else
+    player_sum = first_value + second_value
+    puts "The math says you should " + hard[player_sum][dealer_value]
+  end
 end
 
-# puts "First card is #{first_value}"
-# puts "Second card is #{second_value}"
-# puts "Your sum is #{first_value + second_value}"
-# puts "Deale's card is #{dealer_value}"
+puts "Please enter your 1st card (1-10, J, Q, K, A): "
+first_value = evaluate_card(gets.chomp.downcase).to_i
+puts "Please enter your 2nd card (1-10, J, Q, K, A): "
+second_value = evaluate_card(gets.chomp.downcase).to_i
+puts "Please enter the dealer's up card (1-10, J, Q, K, A): "
+dealer_value = evaluate_card(gets.chomp.downcase).to_i
+
+player_move(first_value, second_value, dealer_value, hard, soft, pair)
